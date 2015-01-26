@@ -32,7 +32,10 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/questionNumber"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:textColor="#ffffffff"
+        android:textStyle="bold"
+        android:textSize="15dp" />
 
     <ScrollView
         android:layout_width="fill_parent"

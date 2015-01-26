@@ -154,6 +154,7 @@ public class MuzHit extends Activity {
         intent = new Intent(MuzHit.this, GameMain.class);
 
         startActivity(intent);
+        finish();
     }
 
 

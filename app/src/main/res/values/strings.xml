@@ -15,18 +15,20 @@
     <string name="answer3">-3-</string>
     <string name="correct_answer">Réponse Correcte</string>
     <string name="bad_answer">Mauvaise Réponse</string>
+    <string name="game_result">Résultat de la partie:</string>
+    <string name="high_score">Bravo vous avez battu votre meilleur score</string>
 
     <string name="no_network">Veuillez activer le réseau et relancer l\'application</string>
     <string name="no_file">Erreur de chargement des questions</string>
     <string name="downloading">Téléchargement des questions</string>
     <string name="loading_bdd">Initialisation des questions</string>
 
-
-
     <string name="dwl_add">http://oxilea.fr/misc/dwl/muzhit/test2.csv</string>
     <string name="dwl_file_name">test.csv</string>
 
-
-    <string name="action_settings">Settings</string>
     <string name="title_activity_game_main">GameMain</string>
+    <string name="title_activity_game_result">GameResult</string>
+
+    <string name="action_settings">Setting</string>
+
 </resources>

@@ -1,6 +1,7 @@
 package fr.oxilea.muzhit;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -23,9 +24,12 @@ public class GameMain extends Activity {
     private static int ANSWER2=2;
     private static int ANSWER3=3;
 
+    private static int GAME_QUESTION_NUMBER=20;
+
     int currentQuestionIndex;
     int currentCorrectAnswer;
     int currentScore;
+    int currentQuestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,42 +38,27 @@ public class GameMain extends Activity {
 
         // initialize score to 000
         currentScore = 0;
+        currentQuestion = 1;
 
         // set first question
-        displayNewQuestion(currentScore);
+        displayNewQuestion(currentScore, currentQuestion);
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_game_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     // create new question screen
-    public void displayNewQuestion(int currentScore)
+    public void displayNewQuestion(int currentScore, int currentQuestion)
     {
+
+        // score display
         String score = getString(R.string.game_score);
         TextView gameScore = (TextView)findViewById(R.id.gameScore);
         score+= " "+String.valueOf(currentScore);
         gameScore.setText(score);
+
+        // question Number Display
+        String QuesNum;
+        TextView gameQuestionNumber = (TextView)findViewById(R.id.questionNumber);
+        QuesNum = String.valueOf(currentQuestion)+"/"+String.valueOf(GAME_QUESTION_NUMBER);
+        gameQuestionNumber.setText(QuesNum);
 
         // open database and check total number of question
         MusicBdd myQuestionBdd = new MusicBdd(this);
@@ -170,8 +159,29 @@ public class GameMain extends Activity {
         }
         // Display feedback to the user, ie answer correct or not
         Toast.makeText(this, userFeedback, Toast.LENGTH_SHORT).show();
-        displayNewQuestion(currentScore);
+
+        if (currentQuestion < GAME_QUESTION_NUMBER) {
+            currentQuestion++;
+            displayNewQuestion(currentScore, currentQuestion);
+        }
+        else
+        {
+            // end of this game result screen
+            startGameResultActivity();
+
+        }
     }
 
+    private void startGameResultActivity()
+    {
+        Intent intent;
+
+        // create setting activity
+        intent = new Intent(GameMain.this, GameResult.class);
+        intent.putExtra("scoreGame",currentScore);
+
+        startActivity(intent);
+        finish();
+    }
 
 }
